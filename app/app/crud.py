@@ -49,14 +49,6 @@ def create_user_if_not_exists(db: Session, user: schemas.UserCreate):
         db.add(db_user)
         db.commit()
         db.refresh(db_user)
-    if db_user.browser is None or db_user.language is None or db_user.os is None or db_user.user_agent is None:
-        db_user.browser = user.browser
-        db_user.language = user.language
-        db_user.os = user.os
-        db_user.user_agent = user.user_agent
-        db.add(db_user)
-        db.commit()
-        db.refresh(db_user)
     return db_user
 
 def create_topic(db: Session, topic: schemas.TopicCreate, room_id: int):
