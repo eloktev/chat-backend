@@ -38,7 +38,7 @@ def create_user_if_not_exists(db: Session, user: schemas.UserCreate):
     if db_user is None:
         logger.info(f"User with firngerprint {user.fingerprint} not found")
         min_user_id = min_srvc.create_user(user.fingerprint)
-        db_user = models.User(**user, minchat_id=min_user_id)
+        db_user = models.User(fingerprint=user.fingerprint, user_agent=user.user_agent, browser=user.browser, os=user.os, language=user.language , minchat_id=min_user_id)
         db.add(db_user)
         db.commit()
         db.refresh(db_user)
