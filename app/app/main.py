@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from .db import engine, Base
-from .routers import rooms, topics, websocket
+from .routers import rooms, topics, websocket, users
 from fastapi.middleware.cors import CORSMiddleware
 
 
@@ -15,5 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 app.include_router(rooms.router)
+app.include_router(users.router)
 app.include_router(topics.router)
 app.include_router(websocket.router)
