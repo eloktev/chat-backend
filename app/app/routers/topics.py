@@ -18,6 +18,10 @@ def create_topic(room_id: int, topic: schemas.TopicCreate, db: Session = Depends
 def read_topic(topic_id: int, db: Session = Depends(get_db)):
     return crud.get_topic(db=db, topic_id=topic_id)
 
+@router.post("/rooms/{room_id}/topics/caption", response_model=schemas.Topic | None)
+def read_topic_by_caption(caption: schemas.TopicBase, room_id: int, db: Session = Depends(get_db)):
+    return crud.get_topic_by_caption(db=db, caption=caption.caption, room_id=room_id)
+
 @router.put("/topics/{topic_id}/cancel", response_model=schemas.Topic)
 def cancel_topic(topic_id: int, db: Session = Depends(get_db)):
     return crud.cancel_topic(db=db, topic_id=topic_id)

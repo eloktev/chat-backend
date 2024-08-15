@@ -21,6 +21,9 @@ def create_room(db: Session, room: schemas.RoomCreate):
 def get_topic(db: Session, topic_id: int):
     return db.query(models.Topic).filter(models.Topic.id == topic_id).first()
 
+def get_topic_by_caption(db: Session, caption: str, room_id: int):
+    return db.query(models.Topic).filter(models.Topic.caption == caption,  models.Topic.status == "CREATED", models.Topic.room_id == room_id).first()
+
 def get_topics(db: Session, room_id: int):
     return db.query(models.Topic).filter(models.Topic.room_id == room_id, models.Topic.status == "CREATED").all()
 
